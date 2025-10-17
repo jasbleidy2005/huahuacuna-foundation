@@ -1,3 +1,4 @@
+// Importaciones de componentes reutilizables y utilidades
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -7,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ArrowLeft, Download, Calendar, Heart, BookOpen, Stethoscope, Utensils, Smile, Video } from "lucide-react"
 import Link from "next/link"
 
-// Mock journal entries
+// Datos simulados de entradas de bitácora (información temporal de ejemplo)
 const journalEntries = [
   {
     id: 1,
@@ -67,6 +68,7 @@ const journalEntries = [
   },
 ]
 
+// Configuración visual y textual para cada categoría de entrada
 const categoryConfig = {
   education: {
     label: "Educación",
@@ -90,15 +92,19 @@ const categoryConfig = {
   },
 }
 
+// Componente principal de la página de Bitácora
 export default function BitacoraPage({ params }: { params: { id: string } }) {
   return (
     <div className="flex min-h-screen flex-col">
+      {/* Encabezado global */}
       <Header />
 
+      {/* Contenido principal */}
       <main className="flex-1">
-        {/* Header Section */}
+        {/* --- SECCIÓN HEADER DE LA BITÁCORA --- */}
         <section className="border-b border-border bg-gradient-to-br from-primary/10 via-background to-secondary/5">
           <div className="container py-8">
+            {/* Botón para volver al perfil del niño */}
             <Button asChild variant="ghost" size="sm" className="mb-4">
               <Link href={`/apadrinar/${params.id}`}>
                 <ArrowLeft className="mr-2 h-4 w-4" />
@@ -106,9 +112,11 @@ export default function BitacoraPage({ params }: { params: { id: string } }) {
               </Link>
             </Button>
 
+            {/* Encabezado con avatar, nombre y botón de descarga */}
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
+                  {/* Avatar de la niña */}
                   <Avatar className="h-16 w-16">
                     <AvatarImage src="/happy-colombian-girl-8-years-old-smiling-portrait.jpg" />
                     <AvatarFallback>MG</AvatarFallback>
@@ -120,6 +128,7 @@ export default function BitacoraPage({ params }: { params: { id: string } }) {
                 </div>
               </div>
 
+              {/* Botón para descargar la bitácora en PDF */}
               <Button size="lg" className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90">
                 <Download className="mr-2 h-5 w-5" />
                 Descargar Bitácora PDF
@@ -128,10 +137,11 @@ export default function BitacoraPage({ params }: { params: { id: string } }) {
           </div>
         </section>
 
-        {/* Stats Section */}
+        {/* --- SECCIÓN DE ESTADÍSTICAS --- */}
         <section className="border-b border-border bg-muted/30 py-6">
           <div className="container">
             <div className="grid gap-4 md:grid-cols-4">
+              {/* Tarjeta 1: número de actualizaciones */}
               <Card className="border-none shadow-sm">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
@@ -146,6 +156,7 @@ export default function BitacoraPage({ params }: { params: { id: string } }) {
                 </CardContent>
               </Card>
 
+              {/* Tarjeta 2: chequeos médicos */}
               <Card className="border-none shadow-sm">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
@@ -160,6 +171,7 @@ export default function BitacoraPage({ params }: { params: { id: string } }) {
                 </CardContent>
               </Card>
 
+              {/* Tarjeta 3: meses apadrinada */}
               <Card className="border-none shadow-sm">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
@@ -174,6 +186,7 @@ export default function BitacoraPage({ params }: { params: { id: string } }) {
                 </CardContent>
               </Card>
 
+              {/* Tarjeta 4: actividades */}
               <Card className="border-none shadow-sm">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
@@ -191,10 +204,11 @@ export default function BitacoraPage({ params }: { params: { id: string } }) {
           </div>
         </section>
 
-        {/* Timeline Section */}
+        {/* --- SECCIÓN DE LÍNEA DE TIEMPO --- */}
         <section className="py-12 md:py-16">
           <div className="container">
             <div className="mx-auto max-w-4xl">
+              {/* Título */}
               <div className="mb-8 space-y-2">
                 <h2 className="font-serif text-2xl font-bold text-foreground">Línea de Tiempo</h2>
                 <p className="text-muted-foreground">
@@ -202,25 +216,26 @@ export default function BitacoraPage({ params }: { params: { id: string } }) {
                 </p>
               </div>
 
-              {/* Timeline */}
+              {/* Contenedor de la línea de tiempo */}
               <div className="relative space-y-8">
-                {/* Timeline line */}
+                {/* Línea vertical central */}
                 <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-border md:left-1/2" />
 
+                {/* Iteración sobre cada entrada de bitácora */}
                 {journalEntries.map((entry, index) => {
                   const config = categoryConfig[entry.category as keyof typeof categoryConfig]
                   const Icon = config.icon
 
                   return (
                     <div key={entry.id} className="relative">
-                      {/* Timeline dot */}
+                      {/* Punto del timeline con ícono */}
                       <div className="absolute left-8 -translate-x-1/2 md:left-1/2">
                         <div className={`flex h-16 w-16 items-center justify-center rounded-full ${config.color}`}>
                           <Icon className="h-8 w-8" />
                         </div>
                       </div>
 
-                      {/* Content */}
+                      {/* Contenido textual e imágenes */}
                       <div
                         className={`ml-24 md:ml-0 ${
                           index % 2 === 0 ? "md:mr-[calc(50%+3rem)]" : "md:ml-[calc(50%+3rem)]"
@@ -228,6 +243,7 @@ export default function BitacoraPage({ params }: { params: { id: string } }) {
                       >
                         <Card className="overflow-hidden border-none shadow-sm">
                           <CardContent className="p-6 space-y-4">
+                            {/* Encabezado del registro */}
                             <div className="flex items-start justify-between gap-4">
                               <div className="space-y-2 flex-1">
                                 <div className="flex items-center gap-2">
@@ -248,7 +264,7 @@ export default function BitacoraPage({ params }: { params: { id: string } }) {
                               </div>
                             </div>
 
-                            {/* Images */}
+                            {/* Imágenes del registro */}
                             {entry.images && entry.images.length > 0 && (
                               <div className="grid gap-3 md:grid-cols-2">
                                 {entry.images.map((image, idx) => (
@@ -263,7 +279,7 @@ export default function BitacoraPage({ params }: { params: { id: string } }) {
                               </div>
                             )}
 
-                            {/* Video */}
+                            {/* Video del registro */}
                             {entry.video && (
                               <div className="overflow-hidden rounded-xl bg-muted aspect-video">
                                 <div className="flex h-full items-center justify-center">
@@ -272,7 +288,7 @@ export default function BitacoraPage({ params }: { params: { id: string } }) {
                               </div>
                             )}
 
-                            {/* Author */}
+                            {/* Información del autor */}
                             <div className="flex items-center gap-3 pt-4 border-t border-border">
                               <Avatar className="h-8 w-8">
                                 <AvatarFallback className="bg-muted text-xs">
@@ -295,7 +311,7 @@ export default function BitacoraPage({ params }: { params: { id: string } }) {
                 })}
               </div>
 
-              {/* Load More */}
+              {/* Botón para cargar más entradas */}
               <div className="mt-12 text-center">
                 <Button variant="outline" size="lg" className="rounded-full bg-transparent">
                   Cargar Más Actualizaciones
@@ -305,7 +321,7 @@ export default function BitacoraPage({ params }: { params: { id: string } }) {
           </div>
         </section>
 
-        {/* Download CTA */}
+        {/* --- SECCIÓN FINAL: DESCARGAR BITÁCORA --- */}
         <section className="bg-gradient-to-br from-primary/20 via-background to-secondary/10 py-16 md:py-24">
           <div className="container">
             <div className="mx-auto max-w-2xl text-center space-y-6">
@@ -330,6 +346,7 @@ export default function BitacoraPage({ params }: { params: { id: string } }) {
         </section>
       </main>
 
+      {/* Pie de página global */}
       <Footer />
     </div>
   )

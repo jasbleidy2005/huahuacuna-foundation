@@ -21,9 +21,7 @@ export default function DashboardPage() {
               <h1 className="font-serif text-3xl font-bold text-foreground md:text-4xl">Bienvenido, María</h1>
               <p className="text-muted-foreground mt-2">Gracias por ser parte del cambio en la vida de Sofía</p>
             </div>
-            <Button variant="outline" size="sm" className="rounded-full bg-transparent">
-              <Bell className="h-4 w-4 mr-2" />3 Notificaciones
-            </Button>
+          
           </div>
 
           <div className="grid gap-6 lg:grid-cols-3">
@@ -56,7 +54,7 @@ export default function DashboardPage() {
                         </Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        Bogotá, Colombia • Grado 3° • Le encanta dibujar y las matemáticas
+                       Grado 3° • Le encanta dibujar y las matemáticas
                       </p>
                       <div className="flex gap-2 pt-2">
                         <Button size="sm" className="rounded-full bg-primary">
@@ -288,20 +286,16 @@ export default function DashboardPage() {
                   </div>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Educación</span>
-                      <span className="font-medium text-foreground">$960</span>
+                    
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Salud</span>
-                      <span className="font-medium text-foreground">$720</span>
+                    
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Nutrición</span>
-                      <span className="font-medium text-foreground">$480</span>
+                      
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Recreación</span>
-                      <span className="font-medium text-foreground">$240</span>
+                      
                     </div>
                   </div>
                 </CardContent>

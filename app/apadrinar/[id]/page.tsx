@@ -1,27 +1,27 @@
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Heart, MapPin, Calendar, School, Sparkles, ArrowLeft, MessageCircle } from "lucide-react"
-import Link from "next/link"
-import { notFound } from "next/navigation"
+// Importación de componentes personalizados y librerías
+import { Header } from "@/components/header"                // Encabezado de la página
+import { Footer } from "@/components/footer"                // Pie de página
+import { Button } from "@/components/ui/button"             // Botón reutilizable
+import { Card, CardContent } from "@/components/ui/card"    // Componente de tarjeta
+import { Badge } from "@/components/ui/badge"               // Etiqueta decorativa
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs" // Sistema de pestañas
+import { Heart, MapPin, Calendar, School, Sparkles, ArrowLeft, MessageCircle } from "lucide-react" // Iconos
+import Link from "next/link"                                // Enlace interno de Next.js
+import { notFound } from "next/navigation"                  // Función para manejar páginas no encontradas
 
-// Mock data - in real app this would come from a database
+// Datos simulados (mock data). En una aplicación real, estos datos vendrían desde una base de datos o API.
 const childrenData: Record<string, any> = {
   "1": {
     id: 1,
     name: "María González",
     age: 8,
-    location: "Bogotá",
     school: "Escuela Primaria San José",
     grade: "3er Grado",
     interests: ["Dibujo", "Matemáticas", "Fútbol"],
     description:
       "María es una niña alegre y curiosa que ama aprender. Sueña con ser maestra algún día para ayudar a otros niños a descubrir el amor por el conocimiento.",
     story:
-      "María vive con su abuela en un barrio humilde de Bogotá. A pesar de las dificultades económicas, siempre mantiene una sonrisa y una actitud positiva. Le encanta ir a la escuela y es una de las mejores estudiantes de su clase. En su tiempo libre, ayuda a su abuela con las tareas del hogar y cuida de su hermano menor.",
+      "María vive con su abuela en un barrio humilde de Bogotá. A pesar de las dificultades económicas, siempre mantiene una sonrisa y una actitud positiva...",
     needs: ["Útiles escolares", "Uniformes", "Apoyo nutricional", "Material educativo"],
     image: "/happy-colombian-girl-8-years-old-smiling-portrait.jpg",
   },
@@ -34,28 +34,37 @@ const childrenData: Record<string, any> = {
     grade: "5to Grado",
     interests: ["Ciencias", "Lectura", "Música"],
     description:
-      "Carlos es un estudiante dedicado con gran interés en las ciencias. Le encanta leer sobre el espacio y sueña con ser astronauta.",
+      "Carlos es un estudiante dedicado con gran interés en las ciencias...",
     story:
-      "Carlos es el mayor de tres hermanos y un ejemplo para ellos. Su padre trabaja como vendedor ambulante y su madre hace trabajos de costura en casa. A pesar de las limitaciones, Carlos nunca pierde su entusiasmo por aprender. Pasa horas en la biblioteca pública leyendo libros de ciencia y astronomía.",
+      "Carlos es el mayor de tres hermanos y un ejemplo para ellos. Su padre trabaja como vendedor ambulante...",
     needs: ["Libros de ciencias", "Acceso a internet", "Apoyo en salud", "Actividades extracurriculares"],
     image: "/happy-colombian-boy-10-years-old-smiling-portrait.jpg",
   },
 }
 
+// Componente principal de la página del perfil del niño
 export default function ChildProfilePage({ params }: { params: { id: string } }) {
+  // Se obtiene el niño según el ID de la URL
   const child = childrenData[params.id]
 
+  // Si el ID no existe, se muestra una página 404
   if (!child) {
     notFound()
   }
 
   return (
     <div className="flex min-h-screen flex-col">
+      {/* Encabezado general del sitio */}
       <Header />
 
       <main className="flex-1">
-        {/* Back Button */}
-        <div className="border-b border-border bg-muted/30">
+        
+
+        {/* Sección del perfil del niño */}
+        <section className="py-12 md:py-16">
+          
+          {/* Botón para volver a la lista de niños */}
+        <div className="border-b border-border bg-muted/30 mt-8">
           <div className="container py-4">
             <Button asChild variant="ghost" size="sm">
               <Link href="/apadrinar">
@@ -66,11 +75,10 @@ export default function ChildProfilePage({ params }: { params: { id: string } })
           </div>
         </div>
 
-        {/* Profile Header */}
-        <section className="py-12 md:py-16">
           <div className="container">
             <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-              {/* Image */}
+
+              {/* Imagen del niño y detalles de apadrinamiento */}
               <div className="space-y-4">
                 <div className="overflow-hidden rounded-3xl bg-muted aspect-square">
                   <img
@@ -79,6 +87,8 @@ export default function ChildProfilePage({ params }: { params: { id: string } })
                     className="h-full w-full object-cover"
                   />
                 </div>
+
+                {/* Tarjeta con información sobre lo que incluye el apadrinamiento */}
                 <Card className="border-none shadow-sm bg-primary/10">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-3">
@@ -98,32 +108,32 @@ export default function ChildProfilePage({ params }: { params: { id: string } })
                 </Card>
               </div>
 
-              {/* Info */}
+              {/* Información general del niño */}
               <div className="space-y-6">
                 <div className="space-y-4">
                   <h1 className="font-serif text-4xl font-bold text-foreground md:text-5xl">{child.name}</h1>
+
+                  {/* Etiquetas de información (edad y grado) */}
                   <div className="flex flex-wrap gap-3">
                     <Badge variant="secondary" className="rounded-full px-3 py-1">
-                      <Calendar className="mr-1 h-3 w-3" />
                       {child.age} años
                     </Badge>
                     <Badge variant="secondary" className="rounded-full px-3 py-1">
-                      <MapPin className="mr-1 h-3 w-3" />
-                      {child.location}
-                    </Badge>
-                    <Badge variant="secondary" className="rounded-full px-3 py-1">
-                      <School className="mr-1 h-3 w-3" />
+
                       {child.grade}
                     </Badge>
                   </div>
                 </div>
 
+                {/* Pestañas (Descripción, Intereses, Necesidades) */}
                 <Tabs defaultValue="about" className="w-full">
                   <TabsList className="grid w-full grid-cols-3">
                     <TabsTrigger value="about">Sobre {child.name.split(" ")[0]}</TabsTrigger>
                     <TabsTrigger value="interests">Intereses</TabsTrigger>
                     <TabsTrigger value="needs">Necesidades</TabsTrigger>
                   </TabsList>
+
+                  {/* Contenido de cada pestaña */}
                   <TabsContent value="about" className="space-y-4 mt-6">
                     <div className="space-y-3">
                       <h3 className="font-semibold text-foreground">Descripción</h3>
@@ -143,6 +153,8 @@ export default function ChildProfilePage({ params }: { params: { id: string } })
                       </p>
                     </div>
                   </TabsContent>
+
+                  {/* Intereses */}
                   <TabsContent value="interests" className="space-y-4 mt-6">
                     <div className="space-y-3">
                       <h3 className="font-semibold text-foreground">Le Apasiona</h3>
@@ -156,11 +168,11 @@ export default function ChildProfilePage({ params }: { params: { id: string } })
                       </div>
                     </div>
                     <p className="text-muted-foreground leading-relaxed">
-                      {child.name.split(" ")[0]} tiene múltiples talentos e intereses que queremos ayudar a desarrollar.
-                      Tu apoyo le permitirá acceder a materiales educativos, actividades extracurriculares y
-                      oportunidades para explorar sus pasiones.
+                      {child.name.split(" ")[0]} tiene múltiples talentos e intereses que queremos ayudar a desarrollar...
                     </p>
                   </TabsContent>
+
+                  {/* Necesidades */}
                   <TabsContent value="needs" className="space-y-4 mt-6">
                     <div className="space-y-3">
                       <h3 className="font-semibold text-foreground">Áreas de Apoyo</h3>
@@ -174,12 +186,12 @@ export default function ChildProfilePage({ params }: { params: { id: string } })
                       </ul>
                     </div>
                     <p className="text-muted-foreground leading-relaxed">
-                      Tu apadrinamiento ayudará a cubrir estas necesidades esenciales para el desarrollo integral de{" "}
-                      {child.name.split(" ")[0]}.
+                      Tu apadrinamiento ayudará a cubrir estas necesidades esenciales...
                     </p>
                   </TabsContent>
                 </Tabs>
 
+                {/* Botones de acción */}
                 <div className="flex flex-col gap-3 pt-4">
                   <Button
                     size="lg"
@@ -188,6 +200,8 @@ export default function ChildProfilePage({ params }: { params: { id: string } })
                     <Heart className="mr-2 h-5 w-5 fill-current" />
                     Apadrinar a {child.name.split(" ")[0]}
                   </Button>
+
+                  {/* Botón para abrir chat de consulta */}
                   <Button asChild variant="outline" size="lg" className="w-full rounded-full bg-transparent">
                     <Link href={`/apadrinar/${child.id}/chat`}>
                       <MessageCircle className="mr-2 h-5 w-5" />
@@ -200,13 +214,15 @@ export default function ChildProfilePage({ params }: { params: { id: string } })
           </div>
         </section>
 
-        {/* Similar Children */}
+        {/* Sección de recomendación de otros niños */}
         <section className="bg-muted/30 py-16 md:py-24">
           <div className="container">
             <div className="mb-8 space-y-2">
               <h2 className="font-serif text-3xl font-bold text-foreground">Otros Niños que Necesitan tu Apoyo</h2>
               <p className="text-muted-foreground">Conoce más historias que pueden tocar tu corazón</p>
             </div>
+
+            {/* Tarjetas de otros niños (simuladas) */}
             <div className="grid gap-6 md:grid-cols-3">
               {[3, 4, 5].map((id) => (
                 <Card key={id} className="overflow-hidden border-none shadow-sm">
@@ -229,6 +245,7 @@ export default function ChildProfilePage({ params }: { params: { id: string } })
         </section>
       </main>
 
+      {/* Pie de página */}
       <Footer />
     </div>
   )
